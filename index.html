@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guild Housing Map</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="grid-overlay.css" />
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Left Sidebar -->
+    <aside class="sidebar-left">
+      <h3>Legend</h3>
+      <div class="legend-item">
+        <div class="legend-color available"></div><span>Available</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color requested"></div><span>Requested</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color assigned"></div><span>Assigned</span>
+      </div>
+
+      <hr />
+
+      <h3>Request a Plot</h3>
+      <form id="requestForm">
+        <label for="characterName">Character Name:</label>
+        <input type="text" id="characterName" name="characterName" required />
+
+        <label for="plotSelect">Select up to 4 plots:</label>
+        <div id="plotSelectContainer">
+          <!-- Checkboxes will be added dynamically -->
+        </div>
+
+        <button type="submit">Submit Request</button>
+      </form>
+    </aside>
+
+    <!-- Map Area -->
+    <main class="map-container">
+      <div class="map-background" id="mapBackground">
+        <!-- House plots will be dynamically positioned here -->
+      </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar-right">
+      <h3>Search Plot</h3>
+      <input type="number" id="searchPlotNumber" placeholder="Enter plot number" />
+      <button id="searchButton">Search</button>
+      <div id="searchResult"></div>
+
+      <hr />
+
+      <h3>Moderator Login</h3>
+      <input type="email" id="moderatorEmail" placeholder="Enter moderator email" />
+      <button id="loginButton">Login</button>
+
+      <div id="moderatorPanel" style="display: none;">
+        <h4>Assignment Panel</h4>
+        <div id="requestList">
+          <!-- Requests will be listed here -->
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Existing scripts -->
+	<script src="housingData.js"></script>
+	<script src="requests.js"></script>
+	<script src="search.js"></script>
+	<script src="moderator.js"></script>
+	<script src="map.js"></script>
+
+</body>
+</html>
