@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="container">
-    
+
     <!-- Left Sidebar -->
     <aside class="sidebar-left">
       <h3>Legend</h3>
@@ -31,21 +31,18 @@
         <input type="text" id="characterName" name="characterName" required />
 
         <label for="plotSelect">Select up to 4 plots:</label>
-<select id="plotSelect" name="plotSelect" multiple size="6">
-  <!-- Options will be added dynamically -->
-</select>
-<small style="color: #ccc;">Hold Ctrl (Windows) or Cmd (Mac) to select multiple plots</small>
-
+        <select id="plotSelect" name="plotSelect" multiple size="6">
+          <!-- Options will be added dynamically -->
+        </select>
+        <small style="color: #ccc;">Hold Ctrl (Windows) or Cmd (Mac) to select multiple plots</small>
 
         <button type="submit">Submit Request</button>
       </form>
     </aside>
 
     <!-- Map Area -->
-    <main class="map-container">
-<div class="map-container">
-  <img id="mapImage" src="map.jpg" alt="Guild Housing Map" />
-</div>
+    <main class="map-container" id="mapContainer">
+      <img id="mapImage" src="map.jpg" alt="Guild Housing Map" />
     </main>
 
     <!-- Right Sidebar -->
@@ -70,14 +67,5 @@
     </aside>
 
   </div>
-  
-<script src="housingData.js"></script>
-<script src="grid-overlay.js"></script> <!-- move this up -->
-<script src="map.js"></script>
-<script src="requests.js"></script>
-<script src="search.js"></script>
-<script src="moderator.js"></script>
 
-
-</body>
-</html>
+  <!-- Scripts -->

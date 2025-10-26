@@ -29,13 +29,13 @@ html, body {
   overflow-y: auto;
 }
 
-.sidebar-left {
-  border-right: 1px solid #444;
-}
-
 .sidebar-right {
   width: 300px;
   border-left: 1px solid #444;
+}
+
+.sidebar-left {
+  border-right: 1px solid #444;
 }
 
 .sidebar-left h3,
@@ -47,7 +47,8 @@ html, body {
 /* Form inputs */
 input[type="text"],
 input[type="email"],
-input[type="number"] {
+input[type="number"],
+select[multiple] {
   width: 100%;
   padding: 8px;
   margin: 8px 0 12px;
@@ -71,25 +72,11 @@ button:hover {
   background-color: #45a049;
 }
 
-/* Map container and background */
+/* Map container and image */
 .map-container {
   flex-grow: 1;
   position: relative;
   background-color: #1a1a1a;
-  min-width: 1000px;
-  min-height: 600px;
-}
-
-.map-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('map.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
   min-width: 1000px;
   min-height: 600px;
 }
@@ -159,66 +146,7 @@ button:hover {
   opacity: 1;
 }
 
-/* Grid overlay */
-.grid-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.grid-line {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.grid-line.vertical {
-  width: 1px;
-  height: 100%;
-}
-
-.grid-line.horizontal {
-  height: 1px;
-  width: 100%;
-}
-
-.grid-label {
-  position: absolute;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 10px;
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 2px 4px;
-  border-radius: 2px;
-  pointer-events: none;
-}
-
-.grid-label.x-label {
-  top: -15px;
-  left: -10px;
-}
-
-.grid-label.y-label {
-  top: -8px;
-  left: -25px;
-}
-
 /* Legend */
-.legend {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 12px;
-  z-index: 100;
-}
-
 .legend-item {
   display: flex;
   align-items: center;
@@ -257,16 +185,6 @@ button:hover {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #555;
-}
-
-select[multiple] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 12px;
-  border: none;
-  border-radius: 4px;
-  background-color: #333;
-  color: white;
 }
 
 /* Responsive fallback */
