@@ -29,7 +29,15 @@ async function updateMap() {
 	if (!pos || typeof pos.x !== "number" || typeof pos.y !== "number") {
   console.warn(`Missing or invalid position for plot ${plotData.plotNumber}`);
   return;
+}
   
+console.log("Housing data:", housingData);
+console.log("Plot positions:", positions);
+
+if (displayedWidth === 0 || displayedHeight === 0) {
+  console.warn("Map dimensions are zero — overlay may not render.");
+}
+
   .plot-info {
   bottom: 100%;
   left: 50%;
