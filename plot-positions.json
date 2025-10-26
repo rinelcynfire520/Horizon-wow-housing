@@ -5,8 +5,7 @@
     "height": 2560
   },
   "plotPositions": [
-    { "x": 2215, "y": 124
-0, "plotNumber": 0 },
+    { "x": 2215, "y": 1240, "plotNumber": 0 },
     { "x": 1630, "y": 1445, "plotNumber": 1 },
     { "x": 1950, "y": 1550, "plotNumber": 2 },
     { "x": 2395, "y": 1100, "plotNumber": 3 },
