@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Elunaria",
+    "requestedPlots": [
+      3,
+      7,
+      12,
+      18
+    ],
+    "assignedPlot": null
+  },
+  {
+    "name": "NewMember",
+    "requestedPlots": [
+      1,
+      4,
+      18,
+      32
+    ],
+    "assignedPlot": null
+  }
+]
