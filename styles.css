@@ -94,6 +94,12 @@ button:hover {
   min-height: 600px;
 }
 
+#mapImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* Plot markers */
 .house-plot {
   position: absolute;

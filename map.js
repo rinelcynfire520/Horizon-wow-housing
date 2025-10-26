@@ -1,6 +1,10 @@
 async function updateMap() {
-  const mapBackground = document.getElementById("mapBackground");
+  const mapImage = document.getElementById("mapImage");
+  const mapBackground = mapImage.parentElement;
   mapBackground.innerHTML = ""; // Clear existing plots
+
+  // Re-append the map image after clearing
+  mapBackground.appendChild(mapImage);
 
   // Load plot positions
   const response = await fetch("plot-positions.json");
@@ -9,8 +13,8 @@ async function updateMap() {
   const originalWidth = data.referenceImage.width;
   const originalHeight = data.referenceImage.height;
 
-  const displayedWidth = mapBackground.clientWidth;
-  const displayedHeight = mapBackground.clientHeight;
+  const displayedWidth = mapImage.offsetWidth;
+  const displayedHeight = mapImage.offsetHeight;
 
   if (displayedWidth === 0 || displayedHeight === 0) {
     console.warn("Map dimensions are zero — overlay may not render.");
@@ -19,6 +23,8 @@ async function updateMap() {
   const scaleX = displayedWidth / originalWidth;
   const scaleY = displayedHeight / originalHeight;
 
+  console.log("Original size:", originalWidth, originalHeight);
+  console.log("Displayed size:", displayedWidth, displayedHeight);
   console.log("Housing data:", housingData);
   console.log("Plot positions:", positions);
 
@@ -58,6 +64,8 @@ async function updateMap() {
     mapBackground.appendChild(plot);
   });
 }
+
+// Ensure map renders after DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   updateMap();
 });
