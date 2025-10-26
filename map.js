@@ -51,4 +51,6 @@ async function updateMap() {
   });
 }
 
-document.addEventListener
+document.addEventListener("DOMContentLoaded", () => {
+  updateMap();
+});
