@@ -5,12 +5,13 @@
     "height": 2560
   },
   "plotPositions": [
-    { "x": 2215, "y": 1250, "plotNumber": 0 },
+    { "x": 2215, "y": 124
+0, "plotNumber": 0 },
     { "x": 1630, "y": 1445, "plotNumber": 1 },
     { "x": 1950, "y": 1550, "plotNumber": 2 },
-    { "x": 2390, "y": 1100, "plotNumber": 3 },
+    { "x": 2395, "y": 1100, "plotNumber": 3 },
     { "x": 1115, "y": 860, "plotNumber": 4 },
-    { "x": 1370, "y": 1500, "plotNumber": 5 },
+    { "x": 1380, "y": 1500, "plotNumber": 5 },
     { "x": 2370, "y": 1450, "plotNumber": 6 },
     { "x": 1910, "y": 830, "plotNumber": 7 },
     { "x": 2055, "y": 1705, "plotNumber": 8 },
