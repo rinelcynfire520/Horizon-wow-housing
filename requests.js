@@ -64,10 +64,50 @@ document.addEventListener("DOMContentLoaded", () => {
     alert("You can only select up to 4 plots.");
     return;
   }
+  function closePopup() {
+  document.getElementById("requestPopup").style.display = "none";
+}
+
+document.getElementById("requestForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("characterName").value.trim();
+  const selectedPlots = Array.from(document.getElementById("plotSelect").selectedOptions).map(opt => parseInt(opt.value));
+
+  if (!name) {
+    alert("Please enter a character name.");
+    return;
+  }
+
+  if (selectedPlots.length === 0) {
+    alert("Please select at least one plot.");
+    return;
+  }
+
+  if (selectedPlots.length > 4) {
+    alert("You can only select up to 4 plots.");
+    return;
+  }
+
+  // Submit logic here (e.g., save request)
+  console.log("Request submitted:", name, selectedPlots);
+
+  // Show popup
+  document.getElementById("requestPopup").style.display = "flex";
+
+  // Optionally clear form
+  document.getElementById("characterName").value = "";
+  document.getElementById("plotSelect").selectedIndex = -1;
+});
 
   // Proceed with request logic here (e.g., save to housingData, update UI)
   console.log("Request submitted:", name, selectedPlots);
   alert("Request submitted successfully!");
+  
+  // Show popup
+const selectedText = selectedPlots.map(num => `Plot ${num}`).join(", ");
+document.getElementById("selectedPlotsMessage").textContent = `You selected: ${selectedText}`;
+document.getElementById("requestPopup").style.display = "flex";
 
   // Optionally clear form
   document.getElementById("characterName").value = "";

@@ -78,6 +78,19 @@
   <script src="search.js"></script>
   <script src="moderator.js"></script>
   
-  
+<div id="requestPopup" class="popup-overlay" style="display: none;">
+  <div class="popup-box">
+    <h3>Request Submitted</h3>
+    <p>
+      Thanks for submitting your plot choices!<br />
+      A moderator will review your request and assign one of your selected plots soon.<br />
+      If multiple members request the same plot, we’ll reach out to help find a fair solution together.
+    </p>
+    <p id="selectedPlotsMessage" style="margin-top: 10px;"></p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+
 </body>
 </html>
