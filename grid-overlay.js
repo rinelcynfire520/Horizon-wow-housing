@@ -43,6 +43,7 @@ async function createGridOverlay() {
       label.textContent = x;
       label.style.left = scaledX + "px";
       label.style.top = "10px";
+      label.style.transform = "translate(-50%, -50%)";
       gridOverlay.appendChild(label);
     }
   }
@@ -63,12 +64,14 @@ async function createGridOverlay() {
       label.textContent = y;
       label.style.top = scaledY + "px";
       label.style.left = "10px";
+      label.style.transform = "translate(-50%, -50%)";
       gridOverlay.appendChild(label);
     }
   }
 
   mapBackground.appendChild(gridOverlay);
 }
+
 function removeGridOverlay() {
   const gridOverlay = document.getElementById("gridOverlay");
   if (gridOverlay) {
@@ -76,6 +79,7 @@ function removeGridOverlay() {
   }
 }
 
+// Toggle grid with G key
 document.addEventListener("keydown", function(event) {
   if (event.key === "g" || event.key === "G") {
     const gridOverlay = document.getElementById("gridOverlay");
@@ -83,17 +87,24 @@ document.addEventListener("keydown", function(event) {
       removeGridOverlay();
       console.log("Grid overlay removed");
     } else {
-      createGridOverlay();
-      console.log("Grid overlay created");
+      // Delay to ensure map is rendered
+      setTimeout(() => {
+        createGridOverlay();
+        console.log("Grid overlay created");
+      }, 500);
     }
   }
 });
 
+// Debounced resize handling
 let resizeTimeout;
 window.addEventListener("resize", function () {
   const gridOverlay = document.getElementById("gridOverlay");
   if (gridOverlay) {
     clearTimeout(resizeTimeout);
-    createGridOverlay();
+    resizeTimeout = setTimeout(() => {
+      createGridOverlay();
+      console.log("Grid overlay redrawn after resize");
+    }, 300);
   }
 });

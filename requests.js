@@ -60,6 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Please select between 1 and 4 plots.");
       return;
     }
+	if (plot.status !== "available") {
+  alert(`Plot ${plotNum} is not available.`);
+  return;
+}
 
     // Update housingData with requested status
     selectedPlots.forEach(plotNum => {
@@ -69,6 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
         plot.requestedBy = characterName;
       }
     });
+
+if (Array.isArray(plot.requestedBy)) {
+  labelText += ` by ${plot.requestedBy.join(", ")}`;
+} else if (typeof plot.requestedBy === "string" && plot.requestedBy.trim() !== "") {
+  labelText += ` by ${plot.requestedBy}`;
+}
 
     alert("Your request has been submitted!");
     form.reset();

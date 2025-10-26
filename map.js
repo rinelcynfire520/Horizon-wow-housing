@@ -58,3 +58,6 @@ async function updateMap() {
     mapBackground.appendChild(plot);
   });
 }
+document.addEventListener("DOMContentLoaded", () => {
+  updateMap();
+});
