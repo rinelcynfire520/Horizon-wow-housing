@@ -1,35 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("requestForm");
-  const plotSelectContainer = document.getElementById("plotSelectContainer");
+  const plotSelect = document.getElementById("plotSelect");
 
-  // Create checkboxes for all available plots
-  for (let i = 0; i < housingData.length; i++) {
-    const plot = housingData[i];
-   if (true) {
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = `plot-${plot.plotNumber}`;
-      checkbox.name = "plotRequest";
-      checkbox.value = plot.plotNumber;
+  // Populate dropdown with available/requested plots
+  plotSelect.innerHTML = ""; // Clear existing options
 
-      const label = document.createElement("label");
-      label.htmlFor = checkbox.id;
-      label.textContent = `Plot ${plot.plotNumber}`;
+housingData.forEach((plot) => {
+  const option = document.createElement("option");
+  option.value = plot.plotNumber;
+  option.textContent = `Plot ${plot.plotNumber} (${plot.status})`;
 
-      const wrapper = document.createElement("div");
-      wrapper.appendChild(checkbox);
-      wrapper.appendChild(label);
-
-      plotSelectContainer.appendChild(wrapper);
-    }
+  if (plot.status === "assigned") {
+    option.disabled = true;
   }
+
+  plotSelect.appendChild(option);
+});
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const characterName = document.getElementById("characterName").value.trim();
-    const selectedPlots = Array.from(document.querySelectorAll('input[name="plotRequest"]:checked'))
-      .map(cb => parseInt(cb.value));
+    const selectedPlots = Array.from(plotSelect.selectedOptions).map(opt => parseInt(opt.value));
 
     if (!characterName) {
       alert("Please enter your character name.");
@@ -41,13 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    selectedPlots.forEach(plotNumber => {
-      const plot = housingData.find(p => p.plotNumber === plotNumber);
-      if (plot && !plot.requestedBy.includes(characterName)) {
-        plot.requestedBy.push(characterName);
-        if (plot.status === "available") {
-          plot.status = "requested";
-        }
+    // Submit logic here — update housingData, assign requests, etc.
+    // You can loop through selectedPlots and mark them as requested
+    selectedPlots.forEach(plotNum => {
+      const plot = housingData.find(p => p.plotNumber === plotNum);
+      if (plot) {
+        plot.status = "requested";
+        plot.requestedBy = characterName;
       }
     });
 

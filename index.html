@@ -31,9 +31,11 @@
         <input type="text" id="characterName" name="characterName" required />
 
         <label for="plotSelect">Select up to 4 plots:</label>
-        <div id="plotSelectContainer">
-          <!-- Checkboxes will be added dynamically -->
-        </div>
+<select id="plotSelect" name="plotSelect" multiple size="6">
+  <!-- Options will be added dynamically -->
+</select>
+<small style="color: #ccc;">Hold Ctrl (Windows) or Cmd (Mac) to select multiple plots</small>
+
 
         <button type="submit">Submit Request</button>
       </form>
