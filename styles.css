@@ -237,6 +237,11 @@ button:hover {
   margin-top: -5px;
 }
 
+.assigned-highlight {
+  border: 2px solid gold;
+  background-color: rgba(255, 215, 0, 0.3);
+}
+
 .house-plot:hover .plot-info {
   opacity: 1;
 }
