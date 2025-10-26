@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Create checkboxes for all available plots
   for (let i = 0; i < housingData.length; i++) {
     const plot = housingData[i];
-    if (plot.status !== "assigned") {
+   if (true) {
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.id = `plot-${plot.plotNumber}`;
