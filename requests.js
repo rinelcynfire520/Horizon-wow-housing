@@ -2,21 +2,49 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("requestForm");
   const plotSelect = document.getElementById("plotSelect");
 
-  // Populate dropdown with available/requested plots
-  plotSelect.innerHTML = ""; // Clear existing options
+  // Clear existing options
+  plotSelect.innerHTML = "";
 
-housingData.forEach((plot) => {
-  const option = document.createElement("option");
-  option.value = plot.plotNumber;
-  option.textContent = `Plot ${plot.plotNumber} (${plot.status})`;
+  // Group plots by status
+  const statusGroups = {
+    available: [],
+    requested: [],
+    assigned: []
+  };
 
-  if (plot.status === "assigned") {
-    option.disabled = true;
+  housingData.forEach((plot) => {
+    statusGroups[plot.status]?.push(plot);
+  });
+
+  // Helper to create optgroup
+  function addGroup(label, plots, disable = false) {
+    const group = document.createElement("optgroup");
+    group.label = label;
+
+    plots.forEach((plot) => {
+      const option = document.createElement("option");
+      option.value = plot.plotNumber;
+
+      let labelText = `Plot ${plot.plotNumber} (${plot.status})`;
+      if (plot.requestedBy) {
+        labelText += ` by ${plot.requestedBy}`;
+      }
+
+      option.textContent = labelText;
+      if (disable) option.disabled = true;
+
+      group.appendChild(option);
+    });
+
+    plotSelect.appendChild(group);
   }
 
-  plotSelect.appendChild(option);
-});
+  // Add groups in order
+  addGroup("Available Plots", statusGroups.available);
+  addGroup("Requested Plots", statusGroups.requested);
+  addGroup("Assigned Plots", statusGroups.assigned, true);
 
+  // Handle form submission
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -33,8 +61,7 @@ housingData.forEach((plot) => {
       return;
     }
 
-    // Submit logic here — update housingData, assign requests, etc.
-    // You can loop through selectedPlots and mark them as requested
+    // Update housingData with requested status
     selectedPlots.forEach(plotNum => {
       const plot = housingData.find(p => p.plotNumber === plotNum);
       if (plot) {
