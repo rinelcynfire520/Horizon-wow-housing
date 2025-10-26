@@ -25,12 +25,25 @@ async function updateMap() {
     plot.style.left = `${pos.x * scaleX}px`;
     plot.style.top = `${pos.y * scaleY}px`;
     plot.textContent = plotData.plotNumber;
-
+	
+	if (!pos || typeof pos.x !== "number" || typeof pos.y !== "number") {
+  console.warn(`Missing or invalid position for plot ${plotData.plotNumber}`);
+  return;
+  
+  .plot-info {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
     // Tooltip
     const tooltip = document.createElement("div");
     tooltip.className = "plot-info";
     let info = `Plot ${plotData.plotNumber}<br>Status: ${plotData.status}`;
-    if (plotData.requestedBy.length > 0) {
+if (Array.isArray(plotData.requestedBy) && plotData.requestedBy.length > 0) {
+  info += `<br>Requested by: ${plotData.requestedBy.join(", ")}`;
+} else if (typeof plotData.requestedBy === "string" && plotData.requestedBy.trim() !== "") {
+  info += `<br>Requested by: ${plotData.requestedBy}`;
+}
       info += `<br>Requested by: ${plotData.requestedBy.join(", ")}`;
     }
     if (plotData.assignedTo) {
