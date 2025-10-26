@@ -43,6 +43,36 @@ document.addEventListener("DOMContentLoaded", () => {
   addGroup("Available Plots", statusGroups.available);
   addGroup("Requested Plots", statusGroups.requested);
   addGroup("Assigned Plots", statusGroups.assigned, true);
+  
+  document.getElementById("requestForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("characterName").value.trim();
+  const selectedPlots = Array.from(document.getElementById("plotSelect").selectedOptions).map(opt => parseInt(opt.value));
+
+  if (!name) {
+    alert("Please enter a character name.");
+    return;
+  }
+
+  if (selectedPlots.length === 0) {
+    alert("Please select at least one plot.");
+    return;
+  }
+
+  if (selectedPlots.length > 4) {
+    alert("You can only select up to 4 plots.");
+    return;
+  }
+
+  // Proceed with request logic here (e.g., save to housingData, update UI)
+  console.log("Request submitted:", name, selectedPlots);
+  alert("Request submitted successfully!");
+
+  // Optionally clear form
+  document.getElementById("characterName").value = "";
+  document.getElementById("plotSelect").selectedIndex = -1;
+});
 
   // Handle form submission
   form.addEventListener("submit", (e) => {
