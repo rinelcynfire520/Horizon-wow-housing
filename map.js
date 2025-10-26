@@ -22,17 +22,6 @@ async function updateMap() {
   positions.forEach(pos => {
     const plotData = housingData.find(p => p.plotNumber === pos.plotNumber);
     if (!plotData) return;
-	const debugDot = document.createElement("div");
-debugDot.style.position = "absolute";
-debugDot.style.left = `${pos.x * scaleX}px`;
-debugDot.style.top = `${pos.y * scaleY}px`;
-debugDot.style.width = "6px";
-debugDot.style.height = "6px";
-debugDot.style.backgroundColor = "lime";
-debugDot.style.borderRadius = "50%";
-debugDot.style.zIndex = "100";
-mapBackground.appendChild(debugDot);
-
 
     const plot = document.createElement("div");
     plot.className = `house-plot ${plotData.status}`;
