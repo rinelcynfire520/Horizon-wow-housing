@@ -10,11 +10,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const code = moderatorCodeInput.value.trim();
     if (code === secretCode) {
       moderatorPanel.style.display = "block";
+      moderatorCodeInput.value = ""; // ✅ Clear password field
       renderRequests();
     } else {
       alert("Access denied. Incorrect moderator code.");
     }
   });
+
+  // ✅ Logout button logic
+  const logoutButton = document.createElement("button");
+  logoutButton.textContent = "Logout";
+  logoutButton.style.marginTop = "10px";
+  logoutButton.onclick = () => {
+    moderatorPanel.style.display = "none";
+    requestList.innerHTML = "";
+  };
+  moderatorPanel.appendChild(logoutButton);
 
   function renderRequests() {
     requestList.innerHTML = "";
