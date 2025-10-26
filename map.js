@@ -1,10 +1,6 @@
 async function updateMap() {
-  const mapImage = document.getElementById("mapImage");
-  const mapBackground = document.getElementById("mapContainer");
-
-  // Remove existing plot markers
-  const existingPlots = mapBackground.querySelectorAll(".house-plot");
-  existingPlots.forEach(p => p.remove());
+  const mapBackground = document.getElementById("mapBackground");
+  mapBackground.innerHTML = ""; // Clear existing plots
 
   // Load plot positions
   const response = await fetch("plot-positions.json");
@@ -13,8 +9,8 @@ async function updateMap() {
   const originalWidth = data.referenceImage.width;
   const originalHeight = data.referenceImage.height;
 
-  const displayedWidth = mapImage.offsetWidth;
-  const displayedHeight = mapImage.offsetHeight;
+  const displayedWidth = mapBackground.clientWidth;
+  const displayedHeight = mapBackground.clientHeight;
 
   if (displayedWidth === 0 || displayedHeight === 0) {
     console.warn("Map dimensions are zero — overlay may not render.");
@@ -31,4 +27,28 @@ async function updateMap() {
     plot.className = `house-plot ${plotData.status}`;
     plot.dataset.plot = plotData.plotNumber;
     plot.style.left = `${pos.x * scaleX}px`;
-    plot.style.top = `${pos.y * scale
+    plot.style.top = `${pos.y * scaleY}px`;
+    plot.textContent = plotData.plotNumber;
+
+    // Tooltip
+    const tooltip = document.createElement("div");
+    tooltip.className = "plot-info";
+
+    let info = `Plot ${plotData.plotNumber}<br>Status: ${plotData.status}`;
+    if (Array.isArray(plotData.requestedBy) && plotData.requestedBy.length > 0) {
+      info += `<br>Requested by: ${plotData.requestedBy.join(", ")}`;
+    } else if (typeof plotData.requestedBy === "string" && plotData.requestedBy.trim() !== "") {
+      info += `<br>Requested by: ${plotData.requestedBy}`;
+    }
+
+    if (plotData.assignedTo) {
+      info += `<br>Assigned to: ${plotData.assignedTo}`;
+    }
+
+    tooltip.innerHTML = info;
+    plot.appendChild(tooltip);
+    mapBackground.appendChild(plot);
+  });
+}
+
+document.addEventListener

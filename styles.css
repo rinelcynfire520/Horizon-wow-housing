@@ -72,7 +72,7 @@ button:hover {
   background-color: #45a049;
 }
 
-/* Map container and image */
+/* Map container and background */
 .map-container {
   flex-grow: 1;
   position: relative;
@@ -81,10 +81,18 @@ button:hover {
   min-height: 600px;
 }
 
-#mapImage {
-  width: 100%;
-  height: auto;
-  display: block;
+.map-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('map.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-width: 1000px;
+  min-height: 600px;
 }
 
 /* Plot markers */
@@ -144,53 +152,4 @@ button:hover {
 
 .house-plot:hover .plot-info {
   opacity: 1;
-}
-
-/* Legend */
-.legend-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.legend-color {
-  width: 12px;
-  height: 12px;
-  margin-right: 8px;
-  border-radius: 2px;
-}
-
-.legend-color.requested {
-  background-color: rgba(255, 193, 7, 0.8);
-}
-
-.legend-color.assigned {
-  background-color: rgba(244, 67, 54, 0.8);
-}
-
-.legend-color.available {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-/* Search and moderator panel */
-#searchResult {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #ccc;
-}
-
-#moderatorPanel {
-  margin-top: 20px;
-  background-color: #2a2a2a;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #555;
-}
-
-/* Responsive fallback */
-@media (max-width: 1000px) {
-  .map-container {
-    min-width: 1000px;
-    overflow: auto;
-  }
 }
