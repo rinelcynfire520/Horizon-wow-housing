@@ -2,6 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("requestForm");
   const plotSelect = document.getElementById("plotSelect");
 
+  // 🏠 Housing Requests Data Store
+  const housingRequests = [];
+
+  /*
+  Example entry:
+  {
+    name: "Elunaria",
+    requestedPlots: [3, 7, 12, 18],
+    assignedPlot: null
+  }
+  */
+
   // Clear existing options
   plotSelect.innerHTML = "";
 
@@ -43,115 +55,105 @@ document.addEventListener("DOMContentLoaded", () => {
   addGroup("Available Plots", statusGroups.available);
   addGroup("Requested Plots", statusGroups.requested);
   addGroup("Assigned Plots", statusGroups.assigned, true);
-  
-  document.getElementById("requestForm").addEventListener("submit", function(event) {
-  event.preventDefault();
 
-  const name = document.getElementById("characterName").value.trim();
-  const selectedPlots = Array.from(document.getElementById("plotSelect").selectedOptions).map(opt => parseInt(opt.value));
+  // 🧠 Handle form submission
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-  if (!name) {
-    alert("Please enter a character name.");
-    return;
-  }
-
-  if (selectedPlots.length === 0) {
-    alert("Please select at least one plot.");
-    return;
-  }
-
-  if (selectedPlots.length > 4) {
-    alert("You can only select up to 4 plots.");
-    return;
-  }
-  function closePopup() {
-  document.getElementById("requestPopup").style.display = "none";
-}
-
-document.getElementById("requestForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const name = document.getElementById("characterName").value.trim();
-  const selectedPlots = Array.from(document.getElementById("plotSelect").selectedOptions).map(opt => parseInt(opt.value));
-
-  if (!name) {
-    alert("Please enter a character name.");
-    return;
-  }
-
-  if (selectedPlots.length === 0) {
-    alert("Please select at least one plot.");
-    return;
-  }
-
-  if (selectedPlots.length > 4) {
-    alert("You can only select up to 4 plots.");
-    return;
-  }
-
-  // Submit logic here (e.g., save request)
-  console.log("Request submitted:", name, selectedPlots);
-
-  // Show popup
-  document.getElementById("requestPopup").style.display = "flex";
-
-  // Optionally clear form
-  document.getElementById("characterName").value = "";
-  document.getElementById("plotSelect").selectedIndex = -1;
-});
-
-  // Proceed with request logic here (e.g., save to housingData, update UI)
-  console.log("Request submitted:", name, selectedPlots);
-  alert("Request submitted successfully!");
-  
-  // Show popup
-const selectedText = selectedPlots.map(num => `Plot ${num}`).join(", ");
-document.getElementById("selectedPlotsMessage").textContent = `You selected: ${selectedText}`;
-document.getElementById("requestPopup").style.display = "flex";
-
-  // Optionally clear form
-  document.getElementById("characterName").value = "";
-  document.getElementById("plotSelect").selectedIndex = -1;
-});
-
-  // Handle form submission
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const characterName = document.getElementById("characterName").value.trim();
+    const name = document.getElementById("characterName").value.trim();
     const selectedPlots = Array.from(plotSelect.selectedOptions).map(opt => parseInt(opt.value));
 
-    if (!characterName) {
-      alert("Please enter your character name.");
+    if (!name) {
+      alert("Please enter a character name.");
       return;
     }
 
-    if (selectedPlots.length === 0 || selectedPlots.length > 4) {
-      alert("Please select between 1 and 4 plots.");
+    if (selectedPlots.length === 0) {
+      alert("Please select at least one plot.");
       return;
     }
-	if (plot.status !== "available") {
-  alert(`Plot ${plotNum} is not available.`);
-  return;
-}
+
+    if (selectedPlots.length > 4) {
+      alert("You can only select up to 4 plots.");
+      return;
+    }
+	
+	form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const name = document.getElementById("characterName").value.trim();
+  const selectedPlots = Array.from(plotSelect.selectedOptions).map(opt => parseInt(opt.value));
+
+  if (!name) {
+    alert("Please enter a character name.");
+    return;
+  }
+
+  if (selectedPlots.length === 0) {
+    alert("Please select at least one plot.");
+    return;
+  }
+
+  if (selectedPlots.length > 4) {
+    alert("You can only select up to 4 plots.");
+    return;
+  }
+
+  // ✅ Save to housingRequests
+  housingRequests.push({
+    name: name,
+    requestedPlots: selectedPlots,
+    assignedPlot: null
+  });
+
+  // ✅ Update housingData with requested status
+  selectedPlots.forEach(plotNum => {
+    const plot = housingData.find(p => p.plotNumber === plotNum);
+    if (plot && plot.status === "available") {
+      plot.status = "requested";
+      plot.requestedBy = name;
+    }
+  });
+
+  // ✅ Show popup with selected plots
+  const selectedText = selectedPlots.map(num => `Plot ${num}`).join(", ");
+  document.getElementById("selectedPlotsMessage").textContent = `You selected: ${selectedText}`;
+  document.getElementById("requestPopup").style.display = "flex";
+
+  // ✅ Clear form
+  form.reset();
+  updateMap(); // re-render the map
+});
+
+
+    // Save to housingRequests
+    housingRequests.push({
+      name: name,
+      requestedPlots: selectedPlots,
+      assignedPlot: null
+    });
 
     // Update housingData with requested status
     selectedPlots.forEach(plotNum => {
       const plot = housingData.find(p => p.plotNumber === plotNum);
-      if (plot) {
+      if (plot && plot.status === "available") {
         plot.status = "requested";
-        plot.requestedBy = characterName;
+        plot.requestedBy = name;
       }
     });
 
-if (Array.isArray(plot.requestedBy)) {
-  labelText += ` by ${plot.requestedBy.join(", ")}`;
-} else if (typeof plot.requestedBy === "string" && plot.requestedBy.trim() !== "") {
-  labelText += ` by ${plot.requestedBy}`;
-}
+    // Show popup with selected plots
+    const selectedText = selectedPlots.map(num => `Plot ${num}`).join(", ");
+    document.getElementById("selectedPlotsMessage").textContent = `You selected: ${selectedText}`;
+    document.getElementById("requestPopup").style.display = "flex";
 
-    alert("Your request has been submitted!");
+    // Clear form
     form.reset();
-    updateMap(); // re-render the map with updated statuses
+    updateMap(); // re-render the map
   });
 });
+
+// 🧹 Close popup function
+function closePopup() {
+  document.getElementById("requestPopup").style.display = "none";
+}
