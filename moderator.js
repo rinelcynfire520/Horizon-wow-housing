@@ -1,21 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loginButton = document.getElementById("loginButton");
-  const moderatorEmailInput = document.getElementById("moderatorEmail");
+  const moderatorCodeInput = document.getElementById("moderatorCode");
   const moderatorPanel = document.getElementById("moderatorPanel");
   const requestList = document.getElementById("requestList");
 
-  const approvedModerators = [
-    "rinelcynfire@gmail.com", // Replace with real moderator emails
-    "another@mod.com"
-  ];
+  const secretCode = "guildsecure123"; // Change this to your own moderator code
 
   loginButton.addEventListener("click", () => {
-    const email = moderatorEmailInput.value.trim().toLowerCase();
-    if (approvedModerators.includes(email)) {
+    const code = moderatorCodeInput.value.trim();
+    if (code === secretCode) {
       moderatorPanel.style.display = "block";
       renderRequests();
     } else {
-      alert("Access denied. Not a recognized moderator.");
+      alert("Access denied. Incorrect moderator code.");
     }
   });
 
@@ -23,12 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
     requestList.innerHTML = "";
 
     housingData.forEach(plot => {
-      if (plot.requestedBy.length > 0 || plot.status === "assigned") {
+      if ((plot.requestedBy && plot.requestedBy.length > 0) || plot.status === "assigned") {
         const div = document.createElement("div");
         div.style.marginBottom = "12px";
 
         let info = `Plot ${plot.plotNumber} - Status: ${plot.status}`;
-        if (plot.requestedBy.length > 0) {
+        if (plot.requestedBy && plot.requestedBy.length > 0) {
           info += ` | Requested by: ${plot.requestedBy.join(", ")}`;
         }
         if (plot.assignedTo) {
