@@ -1,9 +1,9 @@
+// 🏠 Housing Requests Data Store (global)
+const housingRequests = [];
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("requestForm");
   const plotSelect = document.getElementById("plotSelect");
-
-  // 🏠 Housing Requests Data Store
-  const housingRequests = [];
 
   /*
   Example entry:
@@ -77,63 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("You can only select up to 4 plots.");
       return;
     }
-	
-	form.addEventListener("submit", (event) => {
-  event.preventDefault();
 
-  const name = document.getElementById("characterName").value.trim();
-  const selectedPlots = Array.from(plotSelect.selectedOptions).map(opt => parseInt(opt.value));
-
-  if (!name) {
-    alert("Please enter a character name.");
-    return;
-  }
-
-  if (selectedPlots.length === 0) {
-    alert("Please select at least one plot.");
-    return;
-  }
-
-  if (selectedPlots.length > 4) {
-    alert("You can only select up to 4 plots.");
-    return;
-  }
-
-  // ✅ Save to housingRequests
-  housingRequests.push({
-    name: name,
-    requestedPlots: selectedPlots,
-    assignedPlot: null
-  });
-
-  // ✅ Update housingData with requested status
-  selectedPlots.forEach(plotNum => {
-    const plot = housingData.find(p => p.plotNumber === plotNum);
-    if (plot && plot.status === "available") {
-      plot.status = "requested";
-      plot.requestedBy = name;
-    }
-  });
-
-  // ✅ Show popup with selected plots
-  const selectedText = selectedPlots.map(num => `Plot ${num}`).join(", ");
-  document.getElementById("selectedPlotsMessage").textContent = `You selected: ${selectedText}`;
-  document.getElementById("requestPopup").style.display = "flex";
-
-  // ✅ Clear form
-  form.reset();
-  updateMap(); // re-render the map
-});
-
-
-    // Save to housingRequests
+    // ✅ Save to housingRequests
     housingRequests.push({
       name: name,
       requestedPlots: selectedPlots,
       assignedPlot: null
     });
 
-    // Update housingData with requested status
+    // ✅ Update housingData with requested status
     selectedPlots.forEach(plotNum => {
       const plot = housingData.find(p => p.plotNumber === plotNum);
       if (plot && plot.status === "available") {
@@ -142,12 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Show popup with selected plots
+    // ✅ Show popup with selected plots
     const selectedText = selectedPlots.map(num => `Plot ${num}`).join(", ");
     document.getElementById("selectedPlotsMessage").textContent = `You selected: ${selectedText}`;
     document.getElementById("requestPopup").style.display = "flex";
 
-    // Clear form
+    // ✅ Clear form
     form.reset();
     updateMap(); // re-render the map
   });
